@@ -4,21 +4,21 @@ collection of commands to easily run common docker containers
 
 ***
 
-currently supports running
+**supports**
 
 ***
 
-- go
-- rust
-- haskell
-- python
-- node
-- linux
-- java
-- mongo
-- redis
-- postgres
-- mysql
+- `go`
+- `rust`
+- `haskell`
+- `python`
+- `node`
+- `linux`
+- `java`
+- `mongo`
+- `redis`
+- `postgres`
+- `mysql`
 
 ***
 
