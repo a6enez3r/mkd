@@ -4,10 +4,8 @@ collection of commands to easily run common docker containers
 
 ## quickstart
 
-to see list of available commands
-```
-    make help
-    
+to see list of available commands `make help`
+``` 
     list of available commands
 
     go               - create a go dev env in a docker container
@@ -34,9 +32,7 @@ to see list of available commands
     mysql-uri        - get mysql db connection uri
 ```
 
-## available
-
-currently supports running the following containers :-
+currently supports running
 
 - go
 - rust
