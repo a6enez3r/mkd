@@ -10,6 +10,9 @@ currently supports running
 - python
 - node
 - linux
+- java
+- mongo
+- redis
 - postgres
 - mysql
 
@@ -25,6 +28,17 @@ to see list of available commands `make help`
     python           - create a python dev env in a docker container
     node             - create a node dev env in a docker container
     linux            - create a linux dev env in a docker container
+    java             - create a openjdk [java] dev env in a docker container
+
+    mongo
+    mongo-create     - create a mongodb dev db in a docker container
+    mongo-shell      - create a mongodb dev db in a docker container
+    mongo-uri        - get a mongodb db connection uri
+
+    redis
+    redis-create     - create a redis dev db in a docker container
+    redis-shell      - create a redis dev db in a docker container
+    redis-uri        - get a redis connection uri
 
     postgres
     pg-start         - start a postgres db running in a docker container
@@ -42,4 +56,3 @@ to see list of available commands `make help`
     mysql-shell      - access mysql shell using mysql-admin
     mysql-uri        - get mysql db connection uri
 ```
-

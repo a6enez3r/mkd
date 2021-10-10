@@ -62,6 +62,53 @@ ifeq ($(py_image),)
 py_image := python:latest
 endif
 
+
+## java constants
+java_cname := java_dev
+java_workdir := /home
+ifeq ($(java_port),)
+java_port := 7777
+endif
+ifeq ($(java_image),)
+java_image := openjdk:alpine
+endif
+
+
+## mongo constants
+mongo_cname := mongo_dev
+mongo_workdir := /home
+ifeq ($(mongo_port),)
+mongo_port := 27017
+endif
+ifeq ($(mongo_image),)
+mongo_image := mongo:latest
+endif
+ifeq ($(mongo_user),)
+mongo_user := abenezer
+endif
+ifeq ($(mongo_pass),)
+mongo_pass := pw
+endif
+mongo_uri := mongodb://${mongo_user}:${mongo_pass}@localhost:${mongo_port}
+
+## redis constants
+redis_cname := redis_dev
+redis_workdir := /home
+ifeq ($(redis_port),)
+redis_port := 27017
+endif
+ifeq ($(redis_image),)
+redis_image := bitnami/redis:latest
+endif
+ifeq ($(redis_user),)
+redis_user := abenezer
+endif
+ifeq ($(redis_pass),)
+redis_pass := pw
+endif
+redis_uri := redis://:${redis_pass}@localhost:${redis_port}
+
+
 ## postgres constants
 ifeq ($(pg_db),)
 pg_db := pg_dev
@@ -122,6 +169,17 @@ help:
 	@echo "python           - create a python dev env in a docker container"
 	@echo "node             - create a node dev env in a docker container"
 	@echo "linux            - create a linux dev env in a docker container"
+	@echo "java             - create a openjdk [java] dev env in a docker container"
+	@echo 
+	@echo "mongo"
+	@echo "mongo-create     - create a mongodb dev db in a docker container"
+	@echo "mongo-shell      - create a mongodb dev db in a docker container"
+	@echo "mongo-uri        - get a mongodb db connection uri"
+	@echo
+	@echo "redis"
+	@echo "redis-create     - create a redis dev db in a docker container"
+	@echo "redis-shell      - create a redis dev db in a docker container"
+	@echo "redis-uri        - get a redis connection uri"
 	@echo
 	@echo "postgres"
 	@echo "pg-start         - start a postgres db running in a docker container"
@@ -162,6 +220,48 @@ node:
 linux:
 	@echo "spawing: linux"
 	@docker run --rm -it --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/linux/:${linux_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${linux_workdir} ${linux_image}
+
+java:
+	@echo "spawing: java"
+	@docker run --rm -it --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/java/:${java_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${java_workdir} ${java_image}
+
+
+mongo-create:
+	@echo "spawing: mongo"
+	@docker run --rm -it --name ${mongo_cname} -p ${mongo_port}:${mongo_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/mongo/:${mongo_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e MONGO_INITDB_ROOT_PASSWORD=${mongo_pass} -w ${mongo_workdir} ${mongo_image}
+
+mongo-shell:
+	$(eval mongo_cid = $(shell (docker ps -aqf "name=${mongo_cname}")))
+	$(if $(strip $(mongo_cid)), \
+		@docker exec -it ${mongo_cid} mongo,\
+		@echo "no mongo container found!")
+	$(endif)
+
+mongo-uri:
+	$(eval mongo_cid = $(shell (docker ps -aqf "name=${mongo_cname}")))
+	$(if $(strip $(mongo_cid)), \
+		@echo "uri: ${mongo_uri}",\
+		@echo "no mongo container found!")
+	$(endif)
+
+
+redis-create:
+	@echo "spawing: redis"
+	@docker run --rm -it --name ${redis_cname} -e REDIS_PORT_NUMBER=${redis_port} -p ${redis_port}:${redis_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/redis/:${redis_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e REDIS_PASSWORD=${redis_pass} -w ${redis_workdir} ${redis_image}
+
+redis-shell:
+	$(eval redis_cid = $(shell (docker ps -aqf "name=${redis_cname}")))
+	$(if $(strip $(redis_cid)), \
+		@docker exec -it ${redis_cid} redis-cli -h localhost -p ${redis_port} -a ${redis_pass},\
+		@echo "no redis container found!")
+	$(endif)
+
+redis-uri:
+	$(eval redis_cid = $(shell (docker ps -aqf "name=${redis_cname}")))
+	$(if $(strip $(redis_cid)), \
+		@echo "uri: ${redis_uri}",\
+		@echo "no redis container found!")
+	$(endif)
 
 pg-create:
 	$(eval pg_cid = $(shell (docker ps -aqf "name=${pg_cname}")))
