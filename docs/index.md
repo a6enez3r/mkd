@@ -2,7 +2,11 @@
 
 collection of commands to easily run common docker containers
 
+***
+
 currently supports running
+
+***
 
 - go
 - rust
@@ -15,6 +19,18 @@ currently supports running
 - redis
 - postgres
 - mysql
+
+***
+
+**prerequisites**
+
+***
+
+`Docker`
+
+`make`
+
+***
 
 ## quickstart
 
