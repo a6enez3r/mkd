@@ -73,6 +73,26 @@ ifeq ($(java_image),)
 java_image := openjdk:alpine
 endif
 
+## registry constants
+registry_cname := registry_dev
+registry_workdir := /home
+ifeq ($(registry_port),)
+registry_port := 5000
+endif
+ifeq ($(registry_image),)
+registry_image := registry:latest
+endif
+
+## prometheus constants
+prometheus_cname := prometheus_dev
+prometheus_workdir := /prometheus
+ifeq ($(prometheus_port),)
+prometheus_port := 9090
+endif
+ifeq ($(prometheus_image),)
+prometheus_image := prom/prometheus:latest
+endif
+
 
 ## mongo constants
 mongo_cname := mongo_dev
@@ -170,6 +190,8 @@ help:
 	@echo "node             - create a node dev env in a docker container"
 	@echo "linux            - create a linux dev env in a docker container"
 	@echo "java             - create a openjdk [java] dev env in a docker container"
+	@echo "registry         - create a dev registry in a docker container"
+	@echo "prometheus       - create a dev prometheus in a docker container"
 	@echo 
 	@echo "mongo"
 	@echo "mongo-create     - create a mongodb dev db in a docker container"
@@ -225,6 +247,13 @@ java:
 	@echo "spawing: java"
 	@docker run --rm -it --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/java/:${java_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${java_workdir} ${java_image}
 
+registry:
+	@echo "spawing: registry"
+	@docker run --rm -it --name ${registry_cname} -p ${registry_port}:${registry_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/registry/:${registry_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${registry_workdir} ${registry_image}
+
+prometheus:
+	@echo "spawing: prometheus"
+	@docker run --rm -it --name ${prometheus_cname} -p ${prometheus_port}:${prometheus_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/prometheus/:${prometheus_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${prometheus_workdir} ${prometheus_image}
 
 mongo-create:
 	@echo "spawing: mongo"

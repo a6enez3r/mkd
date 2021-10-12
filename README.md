@@ -15,6 +15,8 @@ collection of commands to easily run common docker containers
 - `node`
 - `linux`
 - `java`
+- `registry`
+- `prometheus`
 - `mongo`
 - `redis`
 - `postgres`
@@ -45,6 +47,8 @@ to see list of available commands `make help`
     node             - create a node dev env in a docker container
     linux            - create a linux dev env in a docker container
     java             - create a openjdk [java] dev env in a docker container
+    registry         - create a dev registry in a docker container
+    prometheus       - create a dev prometheus in a docker container
 
     mongo
     mongo-create     - create a mongodb dev db in a docker container
