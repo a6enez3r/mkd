@@ -1,4 +1,4 @@
-# fastdb
+# makeDB
 
 collection of commands to easily run common docker containers
 
