@@ -221,48 +221,48 @@ help:
 
 go:
 	@echo "spawing: go"
-	@docker run --rm -it --name ${go_cname} -p ${go_port}:${go_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/go/:${go_workdir} -w ${go_workdir} ${go_image}
+	@docker run --rm -t --name ${go_cname} -p ${go_port}:${go_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/go/:${go_workdir} -w ${go_workdir} ${go_image}
 
 rust:
 	@echo "spawing: rust"
-	@docker run --rm -it --name ${rust_cname} -p ${rust_port}:${rust_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/rust/:${rust_workdir} -w ${rust_workdir} ${rust_image}
+	@docker run --rm -t --name ${rust_cname} -p ${rust_port}:${rust_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/rust/:${rust_workdir} -w ${rust_workdir} ${rust_image}
 
 haskell:
 	@echo "spawing: haskell"
-	@docker run --rm -it --name ${haskell_cname} -p ${haskell_port}:${haskell_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/haskell/:${haskell_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${haskell_workdir} ${haskell_image} bash
+	@docker run --rm -t --name ${haskell_cname} -p ${haskell_port}:${haskell_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/haskell/:${haskell_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${haskell_workdir} ${haskell_image} bash
 
 python:
 	@echo "spawing: python"
-	@docker run --rm -it --name ${py_cname} -p ${py_port}:${py_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/py/:${py_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${py_workdir} ${py_image} bash
+	@docker run --rm -t --name ${py_cname} -p ${py_port}:${py_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/py/:${py_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${py_workdir} ${py_image} bash
 
 node:
 	@echo "spawing: node"
-	@docker run --rm -it --name ${node_cname} -p ${node_port}:${node_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/node/:${node_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${node_workdir} ${node_image} bash
+	@docker run --rm -t --name ${node_cname} -p ${node_port}:${node_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/node/:${node_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${node_workdir} ${node_image} bash
 
 linux:
 	@echo "spawing: linux"
-	@docker run --rm -it --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/linux/:${linux_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${linux_workdir} ${linux_image}
+	@docker run --rm -t --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/linux/:${linux_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${linux_workdir} ${linux_image}
 
 java:
 	@echo "spawing: java"
-	@docker run --rm -it --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/java/:${java_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${java_workdir} ${java_image}
+	@docker run --rm -t --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/java/:${java_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${java_workdir} ${java_image}
 
 registry:
 	@echo "spawing: registry"
-	@docker run --rm -it --name ${registry_cname} -p ${registry_port}:${registry_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/registry/:${registry_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${registry_workdir} ${registry_image}
+	@docker run --rm -t --name ${registry_cname} -p ${registry_port}:${registry_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/registry/:${registry_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${registry_workdir} ${registry_image}
 
 prometheus:
 	@echo "spawing: prometheus"
-	@docker run --rm -it --name ${prometheus_cname} -p ${prometheus_port}:${prometheus_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/prometheus/:${prometheus_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${prometheus_workdir} ${prometheus_image}
+	@docker run --rm -t --name ${prometheus_cname} -p ${prometheus_port}:${prometheus_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/prometheus/:${prometheus_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${prometheus_workdir} ${prometheus_image}
 
 mongo-create:
 	@echo "spawing: mongo"
-	@docker run --rm -it --name ${mongo_cname} -p ${mongo_port}:${mongo_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/mongo/:${mongo_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e MONGO_INITDB_ROOT_PASSWORD=${mongo_pass} -w ${mongo_workdir} ${mongo_image}
+	@docker run --rm -t --name ${mongo_cname} -p ${mongo_port}:${mongo_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/mongo/:${mongo_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e MONGO_INITDB_ROOT_PASSWORD=${mongo_pass} -w ${mongo_workdir} ${mongo_image}
 
 mongo-shell:
 	$(eval mongo_cid = $(shell (docker ps -aqf "name=${mongo_cname}")))
 	$(if $(strip $(mongo_cid)), \
-		@docker exec -it ${mongo_cid} mongo,\
+		@docker exec -t ${mongo_cid} mongo,\
 		@echo "no mongo container found!")
 	$(endif)
 
@@ -276,12 +276,12 @@ mongo-uri:
 
 redis-create:
 	@echo "spawing: redis"
-	@docker run --rm -it --name ${redis_cname} -e REDIS_PORT_NUMBER=${redis_port} -p ${redis_port}:${redis_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/redis/:${redis_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e REDIS_PASSWORD=${redis_pass} -w ${redis_workdir} ${redis_image}
+	@docker run --rm -t --name ${redis_cname} -e REDIS_PORT_NUMBER=${redis_port} -p ${redis_port}:${redis_port} -v /var/run/docker.sock:/var/run/docker.sock -v $(CURDIR)/data/redis/:${redis_workdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e REDIS_PASSWORD=${redis_pass} -w ${redis_workdir} ${redis_image}
 
 redis-shell:
 	$(eval redis_cid = $(shell (docker ps -aqf "name=${redis_cname}")))
 	$(if $(strip $(redis_cid)), \
-		@docker exec -it ${redis_cid} redis-cli -h localhost -p ${redis_port} -a ${redis_pass},\
+		@docker exec -t ${redis_cid} redis-cli -h localhost -p ${redis_port} -a ${redis_pass},\
 		@echo "no redis container found!")
 	$(endif)
 
@@ -300,7 +300,7 @@ pg-create:
 	$(endif)
 
 pg-start: pg-create
-	@echo "waiting for pg..." && sleep 5 && docker exec -it $(shell docker ps -aqf "name=${pg_cname}") bash -c "while ! pg_isready -p 5432 -h localhost; do sleep 5; done"
+	@echo "waiting for pg..." && sleep 5 && docker exec -t $(shell docker ps -aqf "name=${pg_cname}") bash -c "while ! pg_isready -p 5432 -h localhost; do sleep 5; done"
 
 pg-restart:
 	$(eval pg_cid = $(shell (docker ps -aqf "name=${pg_cname}")))
@@ -326,7 +326,7 @@ pg-purge: pg-stop
 pg-shell:
 	$(eval pg_cid = $(shell (docker ps -aqf "name=${pg_cname}")))
 	$(if $(strip $(pg_cid)), \
-		@docker exec -it ${pg_cid} psql -h ${pg_host} -U ${pg_user} -p 5432 ${pg_db},\
+		@docker exec -t ${pg_cid} psql -h ${pg_host} -U ${pg_user} -p 5432 ${pg_db},\
 		@echo "no pg container found!")
 	$(endif)
 
@@ -345,7 +345,7 @@ mysql-create:
 	$(endif)
 
 mysql-start: mysql-create
-	@echo "waiting for mysql..." && sleep 5 && docker exec -it $(shell docker ps -aqf "name=${mysql_cname}") bash -c "while ! mysqladmin ping -h localhost --silent; do sleep 5; done"
+	@echo "waiting for mysql..." && sleep 5 && docker exec -t $(shell docker ps -aqf "name=${mysql_cname}") bash -c "while ! mysqladmin ping -h localhost --silent; do sleep 5; done"
 
 mysql-restart:
 	$(eval mysql_cid = $(shell (docker ps -aqf "name=${mysql_cname}")))
@@ -371,7 +371,7 @@ mysql-purge: mysql-stop
 mysql-shell:
 	$(eval mysql_cid = $(shell (docker ps -aqf "name=${mysql_cname}")))
 	$(if $(strip $(mysql_cid)), \
-		@docker exec -it ${mysql_cid} mysql -h ${mysql_host} -u ${mysql_user} -P 5432 ${mysql_db} -p,\
+		@docker exec -t ${mysql_cid} mysql -h ${mysql_host} -u ${mysql_user} -P 5432 ${mysql_db} -p,\
 		@echo "no mysql container found!")
 	$(endif)
 
