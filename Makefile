@@ -269,7 +269,7 @@ mongo-shell:
 mongo-uri:
 	$(eval mongo_cid = $(shell (docker ps -aqf "name=${mongo_cname}")))
 	$(if $(strip $(mongo_cid)), \
-		@echo "uri: ${mongo_uri}",\
+		@echo "${mongo_uri}",\
 		@echo "no mongo container found!")
 	$(endif)
 
@@ -288,7 +288,7 @@ redis-shell:
 redis-uri:
 	$(eval redis_cid = $(shell (docker ps -aqf "name=${redis_cname}")))
 	$(if $(strip $(redis_cid)), \
-		@echo "uri: ${redis_uri}",\
+		@echo "${redis_uri}",\
 		@echo "no redis container found!")
 	$(endif)
 
@@ -333,7 +333,7 @@ pg-shell:
 pg-uri:
 	$(eval pg_cid = $(shell (docker ps -aqf "name=${pg_cname}")))
 	$(if $(strip $(pg_cid)), \
-		@echo "uri: ${pg_uri}",\
+		@echo "${pg_uri}",\
 		@echo "no pg container found!")
 	$(endif)
 
@@ -378,6 +378,6 @@ mysql-shell:
 mysql-uri:
 	$(eval mysql_cid = $(shell (docker ps -aqf "name=${mysql_cname}")))
 	$(if $(strip $(mysql_cid)), \
-		@echo "uri: ${mysql_uri}",\
+		@echo "${mysql_uri}",\
 		@echo "no mysql container found!")
 	$(endif)
