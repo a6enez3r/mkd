@@ -178,7 +178,7 @@ endif
 ifeq ($(mysql_image),)
 mysql_image := mysql:8.0
 endif
-mysql_uri := mysql://${mysql_user}:${mysql_pass}@${mysql_host}:${mysql_port}/${mysql_db}
+mysql_uri := mysql+pymysql://${mysql_user}:${mysql_pass}@${mysql_host}:${mysql_port}/${mysql_db}
 
 help:
 	@echo "list of available commands"
