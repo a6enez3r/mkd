@@ -252,7 +252,7 @@ endif
 ## show usage / common commands available
 .PHONY: help
 help:
-	@printf "\n${PURPLE}mkdk${RESET}: collection of commands to simplify running common Docker containers\n\n"
+	@printf "\n${PURPLE}mkd${RESET}: collection of commands to simplify running common Docker containers\n\n"
 	@printf "${RED}cmds:\n\n";
 
 	@awk '{ \
@@ -286,17 +286,17 @@ help:
 ## show sample usecase
 .PHONY: quickstart
 quickstart:
-	@printf "\n${PURPLE}mkdk${RESET}: collection of commands to simplify running common Docker containers\n\n"
-	@printf "you can make ${GREEN}mkdk${RESET} globally accessible by adding: \n\n"
-	@printf '	${RED}alias makedb="make --makefile=/path/to/mkdk/Makefile"${RESET}\n\n'
+	@printf "\n${PURPLE}mkd${RESET}: collection of commands to simplify running common Docker containers\n\n"
+	@printf "you can make ${GREEN}mkd${RESET} globally accessible by adding: \n\n"
+	@printf '	${RED}alias mkd="make --makefile=/path/to/mkd/Makefile"${RESET}\n\n'
 	@printf "once you have that set up you can see list of available commands / containers: \n\n"
-	@printf '	${RED}makedb help${RESET}\n\n'
+	@printf '	${RED}mkd help${RESET}\n\n'
 	@printf "launching a ${GREEN}Python${RESET} container: \n\n"
-	@printf '	${RED}makedb python${RESET}\n\n'
+	@printf '	${RED}mkd python${RESET}\n\n'
 	@printf "launching a ${GREEN}Redis${RESET} container: \n\n"
-	@printf '	${RED}makedb redis-create${RESET}\n\n'
+	@printf '	${RED}mkd redis-create${RESET}\n\n'
 	@printf "similarly a ${GREEN}Postgres${RESET} container can be launched: \n\n"
-	@printf '	${RED}makedb pg-start${RESET}\n\n'
+	@printf '	${RED}mkd pg-start${RESET}\n\n'
 
 ## -- Language containers --
 
