@@ -1,6 +1,6 @@
-# makeDB
+# mkdk
 
-collection of commands to easily run common docker containers
+collection of commands to simplify running common `Docker` containers
 
 ***
 
@@ -36,21 +36,26 @@ collection of commands to easily run common docker containers
 
 **installation**
 
-download `makeDB`
+***
+
+download `mkdk`
 ```sh
-curl https://raw.githubusercontent.com/abmamo/makeDB/main/Makefile --output makeDB.mk
+curl https://raw.githubusercontent.com/abmamo/mkdk/main/Makefile --output mkdk.mk
 ```
 
 make it globally accessible (by adding to `.zshrc` or `.bashrc`)
 ```
-alias makedb="make --makefile=/path/to/makeDB/Makefile"
+alias mkdk="make --makefile=/path/to/mkdk.mk"
 ```
+
 ***
 
 ## quickstart
 
-to see list of available commands `make help` (or `makedb` depending on your installation)
+to see list of available commands `make help` (or `mkdk` depending on your installation)
 ``` 
+mkdk: collection of commands to simplify running common Docker containers
+
 cmds:
 
   help                  show usage / common commands available

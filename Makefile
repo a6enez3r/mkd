@@ -252,13 +252,14 @@ endif
 ## show usage / common commands available
 .PHONY: help
 help:
+	@printf "\n${PURPLE}mkdk${RESET}: collection of commands to simplify running common Docker containers\n\n"
 	@printf "${RED}cmds:\n\n";
 
 	@awk '{ \
 			if ($$0 ~ /^.PHONY: [a-zA-Z\-\_0-9]+$$/) { \
 				helpCommand = substr($$0, index($$0, ":") + 2); \
 				if (helpMessage) { \
-					printf "  ${PURPLE}%-$(TARGET_MAX_CHAR_NUM)s${RESET} ${GREEN}%s${RESET}\n\n", helpCommand, helpMessage; \
+					printf "  ${LIGHTPURPLE}%-$(TARGET_MAX_CHAR_NUM)s${RESET} ${GREEN}%s${RESET}\n\n", helpCommand, helpMessage; \
 					helpMessage = ""; \
 				} \
 			} else if ($$0 ~ /^[a-zA-Z\-\_0-9.]+:/) { \
@@ -285,9 +286,9 @@ help:
 ## show sample usecase
 .PHONY: quickstart
 quickstart:
-	@printf "${BLUE}makeDB${RESET}: collection of commands to easily run common docker containers\n\n"
-	@printf "you can make ${GREEN}makeDB${RESET} globally accessible by adding: \n\n"
-	@printf '	${RED}alias makedb="make --makefile=/path/to/makeDB/Makefile"${RESET}\n\n'
+	@printf "\n${PURPLE}mkdk${RESET}: collection of commands to simplify running common Docker containers\n\n"
+	@printf "you can make ${GREEN}mkdk${RESET} globally accessible by adding: \n\n"
+	@printf '	${RED}alias makedb="make --makefile=/path/to/mkdk/Makefile"${RESET}\n\n'
 	@printf "once you have that set up you can see list of available commands / containers: \n\n"
 	@printf '	${RED}makedb help${RESET}\n\n'
 	@printf "launching a ${GREEN}Python${RESET} container: \n\n"

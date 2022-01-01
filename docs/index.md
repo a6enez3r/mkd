@@ -1,4 +1,4 @@
-# makeDB
+# mkdk
 
 collection of commands to easily run common docker containers
 
@@ -34,45 +34,71 @@ collection of commands to easily run common docker containers
 
 ***
 
+**installation**
+
+download `mkdk`
+```sh
+curl https://raw.githubusercontent.com/abmamo/mkdk/main/Makefile --output mkdk.mk
+```
+
+make it globally accessible (by adding to `.zshrc` or `.bashrc`)
+```
+alias makedb="make --makefile=/path/to/mkdk.mk"
+```
+***
+
 ## quickstart
 
-to see list of available commands `make help`
+to see list of available commands `make help` (or `makedb` depending on your installation)
 ``` 
-    list of available commands
+cmds:
 
-    go               - create a go dev env in a docker container
-    rust             - create a rust dev env in a docker container
-    haskell          - create a haskell dev env in a docker container
-    python           - create a python dev env in a docker container
-    node             - create a node dev env in a docker container
-    linux            - create a linux dev env in a docker container
-    java             - create a openjdk [java] dev env in a docker container
-    registry         - create a dev registry in a docker container
-    prometheus       - create a dev prometheus in a docker container
+  help                  show usage / common commands available
 
-    mongo
-    mongo-create     - create a mongodb dev db in a docker container
-    mongo-shell      - create a mongodb dev db in a docker container
-    mongo-uri        - get a mongodb db connection uri
+  quickstart            show sample usecase
 
-    redis
-    redis-create     - create a redis dev db in a docker container
-    redis-shell      - create a redis dev db in a docker container
-    redis-uri        - get a redis connection uri
 
-    postgres
-    pg-start         - start a postgres db running in a docker container
-    pg-stop          - stop postgres db running in a docker container
-    pg-restart       - restart postgres db running in a docker container
-    pg-purge         - stop & remove postgres db running in a docker container
-    pg-shell         - access postgres shell using psql
-    pg-uri           - get postgres db connection uri
+              -- Language containers --
 
-    mysql
-    mysql-start      - start a mysql db running in a docker container
-    mysql-stop       - stop dev mysql db running in a docker container
-    mysql-restart    - restart mysql db running in a docker container
-    mysql-purge      - stop & remove mysql db running in a docker container
-    mysql-shell      - access mysql shell using mysql-admin
-    mysql-uri        - get mysql db connection uri
+  go:                   create Go env [Docker]
+  rust:                 create Rust env [Docker]
+  haskell:              create Haskell env [Docker]
+  python:               create Python env [Docker]
+  node:                 create Node env [Docker]
+  java:                 create Java env [Docker]
+
+              -- Misc containers --
+
+  linux:                create Linux env [Docker]
+  registry:             create registry env [Docker]
+  prometheus:           create Prometheus env [Docker]
+
+              -- KV containers --
+
+  redis-create:         create Redis container [Docker]
+  redis-shell:          exec. into Redis shell [Docker]
+  redis-uri:            get Redis uri [Docker]
+
+              -- NoSQL containers --
+
+  mongo-create:         create mongo container [Docker]
+  mongo-shell:          exec. into mongo shell [Docker]
+  mongo-uri:            get mongo uri [Docker]
+
+              -- SQL containers --
+
+  pg-create:            create Postgres container [Docker]
+  pg-start:             create & start Postgres container [Docker]
+  pg-restart:           restart Postgres container [Docker]
+  pg-stop:              stop Postgres container [Docker]
+  pg-purge:             purge Postgres container [Docker]
+  pg-shell:             exec. into Postgres shell [Docker]
+  pg-uri:               get Postgres uri [Docker]
+  mysql-create:         create MySQL container [Docker]
+  mysql-start:          create & start MySQL container [Docker]
+  mysql-restart:        restart MySQL container [Docker]
+  mysql-stop:           stop MySQL container [Docker]
+  mysql-purge:          purge MySQL container [Docker]
+  mysql-shell:          exec. into MySQL shell [Docker]
+  mysql-uri:            get MySQL uri [Docker]
 ```
