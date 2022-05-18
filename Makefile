@@ -121,6 +121,19 @@ ifeq ($(prometheus_image),)
 prometheus_image := prom/prometheus:latest
 endif
 
+# elasticsearch constants
+elasticsearch_cname := makedb_elasticsearch
+elasticsearch_wdir := /elasticsearch
+ifeq ($(elasticsearch_ddir),)
+elasticsearch_ddir := ${default_ddir}/elasticsearch
+endif
+ifeq ($(elasticsearch_port),)
+elasticsearch_port := 9090
+endif
+ifeq ($(elasticsearch_image),)
+elasticsearch_image := docker.elastic.co/elasticsearch/elasticsearch:8.2.0
+endif
+
 # KV containers
 
 # redis constants
@@ -313,46 +326,59 @@ rust:
 ## create Haskell env [Docker]
 haskell:
 	@echo "spawning: haskell"
-	@docker run --rm -t --name ${haskell_cname} -p ${haskell_port}:${haskell_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${haskell_ddir}:${haskell_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${haskell_wdir} ${haskell_image} bash
+	@docker run --rm -t --name ${haskell_cname} -p ${haskell_port}:${haskell_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${haskell_ddir}:${haskell_wdir} -w ${haskell_wdir} ${haskell_image} bash
 
 ## create Python env [Docker]
 python:
 	@echo "spawning: python"
-	@docker run --rm -t --name ${python_cname} -p ${python_port}:${python_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${python_ddir}:${python_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${python_wdir} ${python_image} bash
+	@docker run --rm -t --name ${python_cname} -p ${python_port}:${python_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${python_ddir}:${python_wdir} -w ${python_wdir} ${python_image} bash
 
 ## create Node env [Docker]
 node:
 	@echo "spawning: node"
-	@docker run --rm -t --name ${node_cname} -p ${node_port}:${node_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${node_ddir}:${node_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${node_wdir} ${node_image} bash
+	@docker run --rm -t --name ${node_cname} -p ${node_port}:${node_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${node_ddir}:${node_wdir} -w ${node_wdir} ${node_image} bash
 
 ## create Java env [Docker]
 java:
 	@echo "spawning: java"
-	@docker run --rm -t --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${java_ddir}:${java_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${java_wdir} ${java_image}
+	@docker run --rm -t --name ${java_cname} -p ${java_port}:${java_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${java_ddir}:${java_wdir} -w ${java_wdir} ${java_image}
 
 ## -- Misc containers --
 
 ## create Linux env [Docker]
 linux:
 	@echo "spawning: linux"
-	@docker run --rm -t --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${linux_ddir}:${linux_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${linux_wdir} ${linux_image}
+	@docker run --rm -t --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${linux_ddir}:${linux_wdir} -w ${linux_wdir} ${linux_image}
+
+## -- misc storage envs --
 
 ## create registry env [Docker]
 registry:
 	@echo "spawning: registry"
-	@docker run --rm -t --name ${registry_cname} -p ${registry_port}:${registry_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${registry_ddir}:${registry_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${registry_wdir} ${registry_image}
+	@docker run --rm -t --name ${registry_cname} -p ${registry_port}:${registry_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${registry_ddir}:${registry_wdir} -w ${registry_wdir} ${registry_image}
 
 ## create Prometheus env [Docker]
 prometheus:
 	@echo "spawning: prometheus"
-	@docker run --rm -t --name ${prometheus_cname} -p ${prometheus_port}:${prometheus_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${prometheus_ddir}:${prometheus_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -w ${prometheus_wdir} ${prometheus_image}
+	@docker run --rm -t --name ${prometheus_cname} -p ${prometheus_port}:${prometheus_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${prometheus_ddir}:${prometheus_wdir} -w ${prometheus_wdir} ${prometheus_image}
+
+## create minIO env [Docker]
+minio-create:
+	@echo "spawning: minIO"
+	@docker-compose -f compose/mn.yml --env-file envs/mn.env up
+
+## create ElasticSearch env [Docker]
+elasticsearch:
+	@echo "spawning: elasticsearch"
+	@docker network create elastic
+	@docker run --rm -t --name ${elasticsearch_cname} -p 9200:9200 -p 9300:9300 -v /var/run/docker.sock:/var/run/docker.sock -v ${elasticsearch_ddir}:${elasticsearch_wdir} -w ${elasticsearch_wdir} ${elasticsearch_image}
 
 ## -- KV containers --
 
 ## create Redis container [Docker]
 redis-create:
 	@echo "spawning: redis"
-	@docker run --rm -t --name ${redis_cname} -e REDIS_PORT_NUMBER=${redis_port} -p ${redis_port}:${redis_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${redis_ddir}:${redis_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e REDIS_PASSWORD=${redis_pass} -w ${redis_wdir} ${redis_image}
+	@docker run --rm -t --name ${redis_cname} -e REDIS_PORT_NUMBER=${redis_port} -p ${redis_port}:${redis_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${redis_ddir}:${redis_wdir} -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e REDIS_PASSWORD=${redis_pass} -w ${redis_wdir} ${redis_image}
 
 ## exec. into Redis shell [Docker]
 redis-shell:
@@ -375,7 +401,7 @@ redis-uri:
 ## create mongo container [Docker]
 mongo-create:
 	@echo "spawning: mongo"
-	@docker run --rm -t --name ${mongo_cname} -p ${mongo_port}:${mongo_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${mongo_ddir}:${mongo_wdir} -v $(CURDIR)/scripts/startup/:/home/scripts -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e MONGO_INITDB_ROOT_PASSWORD=${mongo_pass} -w ${mongo_wdir} ${mongo_image}
+	@docker run --rm -t --name ${mongo_cname} -p ${mongo_port}:${mongo_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${mongo_ddir}:${mongo_wdir} -e MONGO_INITDB_ROOT_USERNAME=${mongo_user} -e MONGO_INITDB_ROOT_PASSWORD=${mongo_pass} -w ${mongo_wdir} ${mongo_image}
 
 ## exec. into mongo shell [Docker]
 mongo-shell:
