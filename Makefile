@@ -350,8 +350,6 @@ linux:
 	@echo "spawning: linux"
 	@docker run --rm -t --name ${linux_cname} -p ${linux_port}:${linux_port} -v /var/run/docker.sock:/var/run/docker.sock -v ${linux_ddir}:${linux_wdir} -w ${linux_wdir} ${linux_image}
 
-## -- misc storage envs --
-
 ## create registry env [Docker]
 registry:
 	@echo "spawning: registry"
