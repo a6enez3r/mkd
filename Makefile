@@ -3,7 +3,7 @@ default_ddir := $(CURDIR)/data
 # language containers
 
 # rust constants
-rust_cname := makedb_rust
+rust_cname := mkd_rust
 rust_wdir := /home
 ifeq ($(rust_ddir),)
 rust_ddir := ${default_ddir}/rust
@@ -16,8 +16,8 @@ rust_image := rust:alpine
 endif
 
 # go constants
-go_cname := makedb_go
-go_wdir := /go/src/github.com/abmamo
+go_cname := mkd_go
+go_wdir := /go/src/github.com/a6enez3r
 ifeq ($(go_ddir),)
 go_ddir := ${default_ddir}/go
 endif
@@ -29,7 +29,7 @@ go_image := golang:latest
 endif
 
 # haskell constants
-haskell_cname := makedb_haskell
+haskell_cname := mkd_haskell
 haskell_wdir := /home
 ifeq ($(haskell_ddir),)
 haskell_ddir := ${default_ddir}/haskell
@@ -42,7 +42,7 @@ haskell_image := haskell:latest
 endif
 
 # node constants
-node_cname := makedb_node
+node_cname := mkd_node
 node_wdir := /home
 ifeq ($(node_ddir),)
 node_ddir := ${default_ddir}/node
@@ -55,7 +55,7 @@ node_image := node:latest
 endif
 
 # python constants
-python_cname := makedb_python
+python_cname := mkd_python
 python_wdir := /home
 ifeq ($(python_ddir),)
 python_ddir := ${default_ddir}/python
@@ -68,7 +68,7 @@ python_image := python:latest
 endif
 
 # python constants
-java_cname := makedb_python
+java_cname := mkd_python
 java_wdir := /home
 ifeq ($(java_ddir),)
 java_ddir := ${default_ddir}/java
@@ -83,7 +83,7 @@ endif
 # Misc containers
 
 # linux constants
-linux_cname := makedb_linux
+linux_cname := mkd_linux
 linux_wdir := /home
 ifeq ($(linux_ddir),)
 linux_ddir := ${default_ddir}/linux
@@ -96,7 +96,7 @@ linux_image := ubuntu:latest
 endif
 
 # registry constants
-registry_cname := makedb_registry
+registry_cname := mkd_registry
 registry_wdir := /home
 ifeq ($(registry_ddir),)
 registry_ddir := ${default_ddir}/registry
@@ -109,7 +109,7 @@ registry_image := registry:latest
 endif
 
 # prometheus constants
-prometheus_cname := makedb_prometheus
+prometheus_cname := mkd_prometheus
 prometheus_wdir := /prometheus
 ifeq ($(prometheus_ddir),)
 prometheus_ddir := ${default_ddir}/prometheus
@@ -122,7 +122,7 @@ prometheus_image := prom/prometheus:latest
 endif
 
 # elasticsearch constants
-elasticsearch_cname := makedb_elasticsearch
+elasticsearch_cname := mkd_elasticsearch
 elasticsearch_wdir := /elasticsearch
 ifeq ($(elasticsearch_ddir),)
 elasticsearch_ddir := ${default_ddir}/elasticsearch
@@ -137,7 +137,7 @@ endif
 # KV containers
 
 # redis constants
-redis_cname := makedb_redis
+redis_cname := mkd_redis
 redis_wdir := /home
 ifeq ($(redis_ddir),)
 redis_ddir := ${default_ddir}/redis
@@ -159,7 +159,7 @@ redis_uri := redis://:${redis_pass}@localhost:${redis_port}
 # NoSQL containers
 
 # mongo constants
-mongo_cname := makedb_mongo
+mongo_cname := mkd_mongo
 mongo_wdir := /home
 ifeq ($(mongo_ddir),)
 mongo_ddir := ${default_ddir}/mongo
@@ -185,7 +185,7 @@ ifeq ($(pg_ddir),)
 pg_ddir := ${default_ddir}/postgres
 endif
 ifeq ($(pg_db),)
-pg_db := makedb_pg
+pg_db := mkd_pg
 endif
 ifeq ($(pg_user),)
 pg_user := abenezer
@@ -212,7 +212,7 @@ ifeq ($(mysql_ddir),)
 mysql_ddir := ${default_ddir}/mysql
 endif
 ifeq ($(mysql_db),)
-mysql_db := makedb_mysql
+mysql_db := mkd_mysql
 endif
 ifeq ($(mysql_user),)
 mysql_user := abenezer
